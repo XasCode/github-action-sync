@@ -2,9 +2,7 @@
 
 Github Action to public upstream repo commits to the private repo.
 
-Most of the projects have Release branches and master branch. Master branch is where
-developers works on but we want to push the changes to the Release branches too. 
-
+Forked from gorillio/github-action-sync
 
 ## Action
 
@@ -31,7 +29,7 @@ developers works on but we want to push the changes to the Release branches too.
 
 Labels for the new PR
 
-## Example usage 
+## Example usage
 
 ```
 name: Pull upstream
@@ -47,14 +45,14 @@ jobs:
     - name: checkout
       uses: actions/checkout@v1
     - name: Create PR to branch
-      uses: gorillio/github-action-sync@master
+      uses: xascode/github-action-sync@main
       with:
-        upstream: git@github.com:apache/XXX.git
-        upstream_branch: master
-        branch: master
-        pr_labels: upstream
+        upstream: ${{ vars.SYNC_UPSTREAM }}
+        upstream_branch: ${{ vars.SYNC_UPSTREAM_BRANCH }}
+        branch: ${{ vars.SYNC_BRANCH }}
+        pr_labels: ${{ VARS_SYNC_LABELS }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GITBOT_EMAIL: yo@gorill.io
+        GITBOT_EMAIL: ${{ vars.SYNC_EMAIL }}
         DRY_RUN: false
 ```
